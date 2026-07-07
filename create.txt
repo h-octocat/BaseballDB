@@ -1,0 +1,7 @@
+CREATE TABLE (user) (
+    card_id TEXT NOT NULL,   
+    card_name VARCHAR(255) NOT NULL,
+    card_price DECIMAL(10, 2) NOT NULL,
+    card_team VARCHAR(255) NOT NULL
+);
+CREATE INDEX card_id_hash_index(user) ON (user) USING hash (card_id);
