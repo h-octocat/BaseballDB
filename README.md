@@ -10,10 +10,11 @@ Once you have both, install dependencies with `npm i`. Now that you have node de
 Create a file named `.env` in your main directory and fill it with the following:
 ```
 DATABASE_PASSWORD="YOUR_DB_PASSWORD"
+DATABASE_USER="postgres"
 SESSION_SECRET="YOUR_SESSION_SECRET"
 NODE_ENV="testing/production"
 ```
 
-Database password is whatever you set your server password to be when setting up postgres, the session secret is a random string of characters that you need to generate (keep it a secret), and the node environment is either `testing` or `production`. If you are running it locally, it doesn't matter, but if you are putting it on a public server, use `production`.
+Database password is whatever you set your server password to be when setting up postgres, database user is the user that goes with the password to login to your postgres server, the session secret is a random string of characters that you need to generate (keep it a secret), and the node environment is either `testing` or `production`. If you are running it locally, it doesn't matter, but if you are putting it on a public server, use `production`. 
 
-To setup the postgres database, 
+To setup the postgres database, create a database on your sever called "BaseballDB." Inside
