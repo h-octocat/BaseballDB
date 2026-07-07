@@ -20,7 +20,7 @@ env.config();
 
 const { Client } = pg;
 const client = new Client({
-  user: "postgres",
+  user: process.env.DATABASE_USER
   password: process.env.DATABASE_PASSWORD,
   database: "BaseballDB",
 });
