@@ -20,7 +20,7 @@ env.config();
 
 const { Client } = pg;
 const client = new Client({
-  user: process.env.DATABASE_USER
+  user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: "BaseballDB",
 });
@@ -136,7 +136,7 @@ async function queryByName(name, db) {
   return result.rows;
 }
 
-// db is also user btw
+// db is also user
 async function deleteByID(id, db) {
   console.log(`Deleting card for ${db}`);
   try {
@@ -180,6 +180,7 @@ app.get("/", async function (req, res) {
 app.get("/add-card", async function (req, res) {
   if (!req.isAuthenticated()) {
     res.redirect("/login");
+    return;
   }
   res.render("add-card");
 });
@@ -203,21 +204,6 @@ app.get("/search", async function (req, res) {
   res.render("search");
 });
 
-// app.get("/delete", async function (req, res) {
-//   res.render('delete');
-// })
-
-// app.post("/delete", async function (req, res) {
-//   if (!req.isAuthenticated())
-//   const query = req.body.query;
-//   if (!(await cardExists(query, "cards"))) {
-//     res.send('<h1>Card doesn\'t exist.</h1><a href="/">Home</a>');
-//   } else {
-//     await deleteByID(query, "cards");
-//     res.send('<h1>Success!</h1><a href="/">Home</a>')
-//   }
-// })
-
 app.post("/search", async function (req, res) {
   if (!req.isAuthenticated()) {
     res.redirect("/login");
@@ -238,6 +224,7 @@ app.post("/search", async function (req, res) {
 app.post("/add-card", upload.single("card_image"), async function (req, res) {
   if (!req.isAuthenticated()) {
     res.redirect("/login");
+    return;
   }
   const name = req.body.playerName;
   const price = req.body.cardPrice;
@@ -288,7 +275,7 @@ app.get("/data", async (req, res) => {
         return;
       }
       console.log(`Denied image for ${req.user.email}`);
-      res.status(403).send(`ACESS DENIED!`);
+      res.status(403).send(`Access Denied!`);
     }
   }
 });
@@ -307,12 +294,6 @@ app.post("/data", async function (req, res) {
       res.send("success");
     }
   }
-});
-
-app.get("/easter-egg", async function (req, res) {
-  res.send(
-    "do you like games? i like games! do you like baseballdb? i like basbealldb! but you know whats better than basballdb and games? a baseballdb game! i dont know game dev tho.",
-  );
 });
 
 app.get("/login", (req, res) => {
@@ -336,14 +317,6 @@ app.get("/logout", (req, res) => {
     res.redirect("/login");
   }
 });
-
-// app.post(
-//   "/login",
-//   passport.authenticate("local", {
-//     successRedirect: "/",
-//     failureRedirect: "/register",
-//   })
-// );
 
 app.post("/login", (req, res) => {
   passport.authenticate("local", (unknown, user, err) => {
