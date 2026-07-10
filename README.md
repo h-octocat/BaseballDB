@@ -2,6 +2,13 @@
 A database to store all of your baseball cards.
 Get the full story at henryks.net
 
+## Features
+- Add cards with name, team, and price fields and an image
+- Search your cards by exact name
+- Delete your cards
+- View all of your cards
+- User account system with secure hashes and salts
+
 ## Setup
 If you want to install BaseballDB on your machine, you are going to need node and postgres. You can install node at [nodejs.org](https://nodejs.org/en/download) and postgres at [postgres.org](https://www.postgresql.org/download/).
 
@@ -20,7 +27,12 @@ Database password is whatever you set your server password to be when setting up
 To setup the postgres database, create a database on your sever called "BaseballDB." Inside the database, create a "users" table with the following SQL command:
 
 ```
-
+CREATE TABLE users (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
 ```
 
-Once you have setup everything, run node index.js to launch the app. You can access it at `localhost`.
+Make sure that the database runs at localhost:5432.
+Once you have setup everything, run `node index.js` to launch the app. You can access it at `localhost`.
